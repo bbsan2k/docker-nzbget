@@ -31,6 +31,6 @@ chown abc:abc \
 chown abc:abc -R \
 	/app \
 	/config \
-	/scipts
+	/scripts
 chmod u+rw \
 	/config/nzbget.conf
