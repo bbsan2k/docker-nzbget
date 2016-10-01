@@ -19,11 +19,18 @@ fi
 [[ ! -e /config/nzbget.conf ]] && \
 	cp /defaults/nzbget.conf /config/nzbget.conf
 
+[[ ! -e /app/scipts/nzbToMedia/.git ]] && \
+	git clone https://github.com/clinton-hall/nzbToMedia /app/scripts/nzbToMedia
+
+cp -u /scripts/* /app/scripts -R
+ 
+
 # permissions
 chown abc:abc \
 	/downloads
 chown abc:abc -R \
 	/app \
-	/config
+	/config \
+	/scipts
 chmod u+rw \
 	/config/nzbget.conf
