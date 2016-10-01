@@ -19,7 +19,7 @@ fi
 [[ ! -e /config/nzbget.conf ]] && \
 	cp /defaults/nzbget.conf /config/nzbget.conf
 
-[[ -e /app/scripts ]] && \
+[[ -e /scripts ]] && \
 	cp -u /scripts/* /app/scripts -R
  
 
