@@ -26,6 +26,11 @@ RUN \
 	"${NZBGET_VERSION}" && \
  sh /tmp/nzbget.run --destdir /app && \
 
+#install nzbToMedia
+RUN \
+ git clone https://github.com/clinton-hall/nzbToMedia /app/scripts/nzbToMedia
+
+
 # cleanup
  rm -rf \
 	/tmp/*
