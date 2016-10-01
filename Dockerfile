@@ -12,7 +12,8 @@ RUN \
 	p7zip \
 	python \
 	unrar \
-	wget
+	wget \
+	git
 
 # install nzbget
 RUN \
@@ -33,5 +34,5 @@ RUN \
 COPY root/ /
 
 # ports and volumes
-VOLUME /config /downloads
+VOLUME /config /downloads /scripts
 EXPOSE 6789
