@@ -20,7 +20,7 @@ fi
 	cp /defaults/nzbget.conf /config/nzbget.conf
 
 [[ -e /scripts ]] && \
-	cp -u /scripts/* /app/scripts -R
+	cp /scripts/* /app/scripts -R
  
 
 # permissions
