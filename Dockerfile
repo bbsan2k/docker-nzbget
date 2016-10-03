@@ -1,6 +1,10 @@
 FROM linuxserver/nzbget:latest
 MAINTAINER sparklyballs
 
+# install git
+RUN \
+ apk add --no-cache \
+	git
 
 # install nzbToMedia
 RUN \
