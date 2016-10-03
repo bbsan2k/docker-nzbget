@@ -1,4 +1,4 @@
-FROM lsiobase/alpine
+FROM lsiobase/alpine.python
 MAINTAINER sparklyballs
 
 # package version
