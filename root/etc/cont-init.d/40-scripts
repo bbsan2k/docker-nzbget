@@ -9,6 +9,6 @@ chown abc:abc -R \
 [[ -e /scripts ]] && \
 	cp -rf /scripts/* /app/scripts
  
- 
-[[ ! -e /scripts ]] && \
+
+[[ ! -e /app/scripts/nzbToMedia/.git ]] && \
 	git clone https://github.com/clinton-hall/nzbToMedia /app/scripts/nzbToMedia
