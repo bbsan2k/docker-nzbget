@@ -11,4 +11,4 @@ chown abc:abc -R \
  
 
 [[ ! -e /app/scripts/nzbToMedia/.git ]] && \
-	git clone https://github.com/clinton-hall/nzbToMedia /app/scripts/nzbToMedia
+	/usr/bin/git clone https://github.com/clinton-hall/nzbToMedia /app/scripts/nzbToMedia
