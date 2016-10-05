@@ -65,11 +65,11 @@ RUN \
 	virtualenv && \
 
 # clean up
-# apk del --purge \
-#	build-dependencies && \
-# rm -rf \
-#	/root/.cache \
-#	/tmp/*
+ apk del --purge \
+	build-dependencies && \
+ rm -rf \
+	/root/.cache \
+	/tmp/*
 
 
 
