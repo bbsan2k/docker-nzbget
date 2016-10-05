@@ -1,9 +1,7 @@
 #!/usr/bin/with-contenv bash
 
 
-# permissions
-chown abc:abc -R \
-	/scripts
+
 
 # copy all addition post processing scripts
 [[ -e /scripts ]] && \
@@ -12,3 +10,8 @@ chown abc:abc -R \
 
 [[ ! -e /app/scripts/nzbToMedia/.git ]] && \
 	/usr/bin/git clone https://github.com/clinton-hall/nzbToMedia /app/scripts/nzbToMedia
+
+
+# permissions
+chown abc:abc -R \
+	/scripts
