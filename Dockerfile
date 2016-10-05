@@ -76,8 +76,8 @@ RUN \
 
 
 # install nzbToMedia
-RUN \
- git clone https://github.com/clinton-hall/nzbToMedia /app/scripts/nzbToMedia
+#RUN \
+# git clone https://github.com/clinton-hall/nzbToMedia /app/scripts/nzbToMedia
 
 
 # add local files
