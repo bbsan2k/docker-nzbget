@@ -1,7 +1,9 @@
 #!/usr/bin/with-contenv bash
 
 
-
+# permissions
+chown abc:abc -R \
+	/scripts
 
 # copy all addition post processing scripts
 [[ -e /scripts ]] && \
@@ -14,4 +16,4 @@
 
 # permissions
 chown abc:abc -R \
-	/scripts
+	/app/scripts
