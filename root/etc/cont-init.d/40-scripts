@@ -10,9 +10,11 @@ chown abc:abc -R \
 	cp -rf /scripts/* /app/scripts
  
 
-[[ ! -e /app/scripts/nzbToMedia/.git ]] && \
+if [[ ! -e /app/scripts/nzbToMedia/.git ]]; then
 	/usr/bin/git clone https://github.com/clinton-hall/nzbToMedia /app/scripts/nzbToMedia
-
+else
+	cd /app/scripts/nzbToMedia && /usr/bin/git pull
+fi
 
 # permissions
 chown abc:abc -R \
