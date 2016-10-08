@@ -8,15 +8,10 @@ RUN \
 	freetype \
 	git \
 	lcms2 \
-	libjpeg-turbo \
-	libwebp \
-	openjpeg \
-	p7zip \
 	py-lxml \
 	py-pip \
 	python \
 	tar \
-	tiff \
 	unrar \
 	unzip \
 	wget \
@@ -51,16 +46,8 @@ RUN \
 	pip && \
  LIBRARY_PATH=/lib:/usr/lib \
  pip install --no-cache-dir -U \
-	cheetah \
 	configparser \
-	ndg-httpsclient \
-	notify \
-	paramiko \
-	pillow \
-	psutil \
-	pyopenssl \
 	requests \
-	setuptools \
 	urllib3 \
 	virtualenv && \
 
@@ -70,8 +57,6 @@ RUN \
  rm -rf \
 	/root/.cache \
 	/tmp/*
-
-
 
 
 
