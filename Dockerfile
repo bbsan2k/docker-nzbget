@@ -52,7 +52,7 @@ RUN \
 	configparser \
 	requests \
 	urllib3 \
-	virtualenv && \
+	virtualenv \
 
 
 
