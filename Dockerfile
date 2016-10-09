@@ -51,18 +51,35 @@ RUN \
 	urllib3 \
 	virtualenv && \
 
+
+# install ffmpeg
+git clone git://source.ffmpeg.org/ffmpeg.git /tmp/FFmpeg&& \
+git clone git://github.com/yasm/yasm.git /tmp/FFmpeg/yasm && \
+git clone git://git.videolan.org/x264.git /tmp/FFmpeg/x264 && \
+
+cd /tmp/FFmpeg/yasm
+./autogen.sh && \
+./configure && \
+make && \
+make install && \
+
+cd /tmp/FFmpeg/x264 && \
+./configure --enable-static --enable-shared && \
+make && \
+make install && \
+ldconfig && \
+
+cd /tmp/FFmpeg && \
+./configure --disable-asm --enable-libx264 --enable-gpl && \
+make install && \
+
+
 # clean up
  apk del --purge \
 	build-dependencies && \
  rm -rf \
 	/root/.cache \
 	/tmp/*
-
-
-
-# install nzbToMedia
-#RUN \
-# git clone https://github.com/clinton-hall/nzbToMedia /app/scripts/nzbToMedia
 
 
 # add local files
