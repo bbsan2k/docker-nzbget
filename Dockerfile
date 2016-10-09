@@ -4,6 +4,7 @@ MAINTAINER sparklyballs
 # install runtime dependencies
 RUN \
  apk add --no-cache \
+ 	bzip2 \
 	curl \
 	freetype \
 	git \
@@ -35,10 +36,12 @@ RUN \
 	libwebp-dev \
 	linux-headers \
 	make \
+	nasm \
 	openjpeg-dev \
 	openssl-dev \
 	python-dev \
 	tiff-dev \
+	yasm-dev \
 	zlib-dev && \
 
 # add pip packages
@@ -51,21 +54,15 @@ RUN \
 	urllib3 \
 	virtualenv && \
 
-# clean up
- apk del --purge \
-	build-dependencies && \
- rm -rf \
-	/root/.cache \
-	/tmp/*
 
 
 
 # install ffmpeg
 ENV FFMPEG_VERSION=3.0.2
 
-RUN apk add --update build-base curl nasm tar bzip2 \
-  zlib-dev openssl-dev yasm-dev lame-dev libogg-dev x264-dev \
-  libvpx-dev libvorbis-dev x265-dev freetype-dev libass-dev libwebp-dev \ 
+RUN apk add --update build-base  \
+  lame-dev libogg-dev x264-dev \
+  libvpx-dev libvorbis-dev x265-dev libass-dev \ 
   rtmpdump-dev libtheora-dev opus-dev && \
 
   DIR=$(mktemp -d) && cd ${DIR} && \
@@ -81,9 +78,15 @@ RUN apk add --update build-base curl nasm tar bzip2 \
   make install && \
   make distclean && \
 
-  rm -rf ${DIR} && \
-  apk del build-base && rm -rf /var/cache/apk/*
+  rm -rf ${DIR}
 
+# clean up
+RUN apk del --purge \
+	build-dependencies \
+	build-base && \
+ rm -rf \
+	/root/.cache \
+	/tmp/*
 
 
 
