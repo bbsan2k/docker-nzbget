@@ -1,6 +1,10 @@
 FROM linuxserver/nzbget:latest
 MAINTAINER sparklyballs
 
+
+# install ffmpeg
+ENV FFMPEG_VERSION=3.0.2
+
 # install runtime dependencies
 RUN \
  apk add --no-cache \
@@ -52,13 +56,11 @@ RUN \
 	configparser \
 	requests \
 	urllib3 \
-	virtualenv \
+	virtualenv
 
 
 
 
-# install ffmpeg
-ENV FFMPEG_VERSION=3.0.2
 
 RUN apk add --update build-base  \
   lame-dev libogg-dev x264-dev \
