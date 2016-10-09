@@ -57,7 +57,7 @@ git clone git://source.ffmpeg.org/ffmpeg.git /tmp/FFmpeg&& \
 git clone git://github.com/yasm/yasm.git /tmp/FFmpeg/yasm && \
 git clone git://git.videolan.org/x264.git /tmp/FFmpeg/x264 && \
 
-cd /tmp/FFmpeg/yasm
+cd /tmp/FFmpeg/yasm && \
 ./autogen.sh && \
 ./configure && \
 make && \
