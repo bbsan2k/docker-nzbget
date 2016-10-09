@@ -51,35 +51,40 @@ RUN \
 	urllib3 \
 	virtualenv && \
 
-
-# install ffmpeg
-git clone git://source.ffmpeg.org/ffmpeg.git /tmp/FFmpeg&& \
-git clone git://github.com/yasm/yasm.git /tmp/FFmpeg/yasm && \
-git clone git://git.videolan.org/x264.git /tmp/FFmpeg/x264 && \
-
-cd /tmp/FFmpeg/yasm && \
-./autogen.sh && \
-./configure && \
-make && \
-make install && \
-
-cd /tmp/FFmpeg/x264 && \
-./configure --enable-static --enable-shared && \
-make && \
-make install && \
-ldconfig && \
-
-cd /tmp/FFmpeg && \
-./configure --disable-asm --enable-libx264 --enable-gpl && \
-make install && \
-
-
 # clean up
  apk del --purge \
 	build-dependencies && \
  rm -rf \
 	/root/.cache \
 	/tmp/*
+
+
+
+# install ffmpeg
+ENV FFMPEG_VERSION=3.0.2
+
+RUN apk add --update build-base curl nasm tar bzip2 \
+  zlib-dev openssl-dev yasm-dev lame-dev libogg-dev x264-dev \
+  libvpx-dev libvorbis-dev x265-dev freetype-dev libass-dev libwebp-dev \ 
+  rtmpdump-dev libtheora-dev opus-dev && \
+
+  DIR=$(mktemp -d) && cd ${DIR} && \
+
+  curl -s http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz | tar zxvf - -C . && \
+  cd ffmpeg-${FFMPEG_VERSION} && \
+  ./configure \
+  --enable-version3 --enable-gpl --enable-nonfree --enable-small --enable-libmp3lame \
+  --enable-libx264 --enable-libx265 --enable-libvpx --enable-libtheora --enable-libvorbis \
+  --enable-libopus --enable-libass --enable-libwebp --enable-librtmp --enable-postproc \
+  --enable-avresample --enable-libfreetype --enable-openssl --disable-debug && \
+  make && \
+  make install && \
+  make distclean && \
+
+  rm -rf ${DIR} && \
+  apk del build-base && rm -rf /var/cache/apk/*
+
+
 
 
 # add local files
