@@ -45,7 +45,6 @@ RUN \
 	openssl-dev \
 	python-dev \
 	tiff-dev \
-	yasm-dev \
 	zlib-dev && \
 
 # add pip packages
@@ -65,20 +64,16 @@ RUN \
 RUN apk add --update build-base  \
   lame-dev libogg-dev x264-dev \
   libvpx-dev libvorbis-dev x265-dev libass-dev \ 
-  rtmpdump-dev libtheora-dev opus-dev && \
+  rtmpdump-dev libtheora-dev opus-dev yasm-dev && \
 
   DIR=$(mktemp -d) && cd ${DIR} && \
 
-  curl -s http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz | tar zxvf - -C . && \
-  cd ffmpeg-${FFMPEG_VERSION} && \
-  ./configure \
-  --enable-version3 --enable-gpl --enable-nonfree --enable-small --enable-libmp3lame \
-  --enable-libx264 --enable-libx265 --enable-libvpx --enable-libtheora --enable-libvorbis \
-  --enable-libopus --enable-postproc \
-  --enable-avresample --enable-libfreetype --enable-openssl --disable-debug && \
-  make && \
+  git clone git://source.ffmpeg.org/ffmpeg.git ${DIR} && \
+  cd ${DIR} && \
+
+  ./configure --disable-asm --enable-libx264 --enable-gpl && \
   make install && \
-  make distclean && \
+
 
   rm -rf ${DIR}
 
