@@ -37,6 +37,7 @@ RUN \
 	lcms2-dev \
 	libffi-dev \
 	libpng-dev \
+	libtool \
 	libwebp-dev \
 	linux-headers \
 	make \
@@ -66,16 +67,27 @@ RUN apk add --update build-base  \
   libvpx-dev libvorbis-dev x265-dev libass-dev \ 
   rtmpdump-dev libtheora-dev opus-dev yasm-dev && \
 
-  DIR=$(mktemp -d) && cd ${DIR} && \
+# build fdk-aac
+  DIR_LIBFDKAAC=$(mktemp -d) && cd ${DIR_LIBFDKAAC} && \
+  git clone git://github.com/mstorsjo/fdk-aac ${DIR_LIBFDKAAC} && \
+  ./autogen.sh && \
+  ./configure --disable-shared && \
+  make && \
+  make install && \
+  make distclean && \
+  rm -rf ${DIR_LIBFDKAAC} && \
 
-  git clone git://source.ffmpeg.org/ffmpeg.git ${DIR} && \
-  cd ${DIR} && \
+# build an install ffmpeg
+  DIR_FFMPEG=$(mktemp -d) && cd ${DIR_FFMPEG} && \
 
-  ./configure --disable-asm --enable-libx264 --enable-gpl && \
+  git clone git://source.ffmpeg.org/ffmpeg.git ${DIR_FFMPEG} && \
+  cd ${DIR_FFMPEG} && \
+
+  ./configure --disable-asm --enable-libx264 --enable-libfdk_aac --enable-gpl && \
   make install && \
 
 
-  rm -rf ${DIR}
+  rm -rf ${DIR_FFMPEG}
 
 # clean up
 RUN apk del --purge \
