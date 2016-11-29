@@ -4,6 +4,7 @@ MAINTAINER sparklyballs
 
 # install ffmpeg
 ENV FFMPEG_VERSION=3.0.2
+ENV NZBTOMEDIA_BRANCH=master
 
 # install runtime dependencies
 RUN \
