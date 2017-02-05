@@ -1,9 +1,15 @@
 FROM linuxserver/nzbget:latest
 MAINTAINER sparklyballs
 
+
+# install ffmpeg
+ENV FFMPEG_VERSION=3.0.2
+ENV NZBTOMEDIA_BRANCH=master
+
 # install runtime dependencies
 RUN \
  apk add --no-cache \
+ 	bzip2 \
 	curl \
 	freetype \
 	git \
@@ -35,6 +41,7 @@ RUN \
 	libwebp-dev \
 	linux-headers \
 	make \
+	nasm \
 	openjpeg-dev \
 	openssl-dev \
 	python-dev \
@@ -49,41 +56,35 @@ RUN \
 	configparser \
 	requests \
 	urllib3 \
-	virtualenv && \
-
-# clean up
- apk del --purge \
-	build-dependencies && \
- rm -rf \
-	/root/.cache \
-	/tmp/*
+	virtualenv
 
 
 
-# install ffmpeg
-ENV FFMPEG_VERSION=3.0.2
 
-RUN apk add --update build-base curl nasm tar bzip2 \
-  zlib-dev openssl-dev yasm-dev lame-dev libogg-dev x264-dev \
-  libvpx-dev libvorbis-dev x265-dev freetype-dev libass-dev libwebp-dev \ 
-  rtmpdump-dev libtheora-dev opus-dev && \
+
+RUN apk add --update build-base  \
+  lame-dev libogg-dev x264-dev \
+  libvpx-dev libvorbis-dev x265-dev libass-dev \ 
+  rtmpdump-dev libtheora-dev opus-dev yasm-dev && \
 
   DIR=$(mktemp -d) && cd ${DIR} && \
 
-  curl -s http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz | tar zxvf - -C . && \
-  cd ffmpeg-${FFMPEG_VERSION} && \
-  ./configure \
-  --enable-version3 --enable-gpl --enable-nonfree --enable-small --enable-libmp3lame \
-  --enable-libx264 --enable-libx265 --enable-libvpx --enable-libtheora --enable-libvorbis \
-  --enable-libopus --enable-libass --enable-libwebp --enable-librtmp --enable-postproc \
-  --enable-avresample --enable-libfreetype --enable-openssl --disable-debug && \
-  make && \
+  git clone git://source.ffmpeg.org/ffmpeg.git ${DIR} && \
+  cd ${DIR} && \
+
+  ./configure --disable-asm --enable-libx264 --enable-gpl && \
   make install && \
-  make distclean && \
 
-  rm -rf ${DIR} && \
-  apk del build-base && rm -rf /var/cache/apk/*
 
+  rm -rf ${DIR}
+
+# clean up
+RUN apk del --purge \
+	build-dependencies \
+	build-base && \
+ rm -rf \
+	/root/.cache \
+	/tmp/*
 
 
 
