@@ -18,8 +18,7 @@ RUN \
 	tar \
 	unzip \
 	xz \
-	zlib && 
-
+	zlib && \
  apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/testing \
 	vnstat && \
 
