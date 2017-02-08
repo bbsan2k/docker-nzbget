@@ -24,9 +24,9 @@ RUN \
 
 
 # add pip packages
- pip install --no-cache-dir -U \
-	pip && \
- LIBRARY_PATH=/lib:/usr/lib \
+ #pip install --no-cache-dir -U \
+ #	pip && \
+ #LIBRARY_PATH=/lib:/usr/lib \
  pip install --no-cache-dir -U \
 	configparser \
 	requests \
