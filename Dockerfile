@@ -62,21 +62,23 @@ RUN \
 
 
 
-RUN apk add --update build-base  \
-  lame-dev libogg-dev x264-dev \
-  libvpx-dev libvorbis-dev x265-dev libass-dev \ 
-  rtmpdump-dev libtheora-dev opus-dev yasm-dev && \
+#RUN apk add --update build-base  \
+#  lame-dev libogg-dev x264-dev \
+#  libvpx-dev libvorbis-dev x265-dev libass-dev \ 
+#  rtmpdump-dev libtheora-dev opus-dev yasm-dev && \
+#
+#  DIR=$(mktemp -d) && cd ${DIR} && \
+#
+#  git clone git://source.ffmpeg.org/ffmpeg.git ${DIR} && \
+#  cd ${DIR} && \
+#
+#  ./configure --disable-asm --enable-libx264 --enable-gpl && \
+#  make install && \
 
-  DIR=$(mktemp -d) && cd ${DIR} && \
 
-  git clone git://source.ffmpeg.org/ffmpeg.git ${DIR} && \
-  cd ${DIR} && \
+ # rm -rf ${DIR}
 
-  ./configure --disable-asm --enable-libx264 --enable-gpl && \
-  make install && \
-
-
-  rm -rf ${DIR}
+RUN apk add --update ffmpeg
 
 # clean up
 RUN apk del --purge \
