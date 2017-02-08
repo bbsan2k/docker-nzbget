@@ -18,24 +18,17 @@ RUN \
 	tar \
 	unzip \
 	xz \
-	zlib && \
- apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/testing \
-	vnstat && \
+	zlib \
+	ffmpeg
+
 
 
 # add pip packages
- #pip install --no-cache-dir -U \
- #	pip && \
- #LIBRARY_PATH=/lib:/usr/lib \
- pip install --no-cache-dir -U \
+ RUN pip install --no-cache-dir -U \
 	configparser \
 	requests \
 	urllib3 \
 	virtualenv
-
-
-
-RUN apk add --update ffmpeg
 
 # add local files
 COPY root/ /
