@@ -6,11 +6,14 @@ chown abc:abc -R \
 	/scripts
  
 
-if [[ ! -e /app/scripts/nzbToMedia/.git ]]; then
-	/usr/bin/git clone https://github.com/clinton-hall/nzbToMedia -b ${NZBTOMEDIA_BRANCH} /app/scripts/nzbToMedia
+if [[ ! -e /scripts/nzbToMedia/.git ]]; then
+	/usr/bin/git clone https://github.com/clinton-hall/nzbToMedia -b ${NZBTOMEDIA_BRANCH} /scripts/nzbToMedia
 else
-	cd /app/scripts/nzbToMedia && /usr/bin/git pull && /usr/bin/git checkout ${NZBTOMEDIA_BRANCH} 
+	cd /scripts/nzbToMedia && /usr/bin/git pull && /usr/bin/git checkout ${NZBTOMEDIA_BRANCH} 
 fi
+
+ln -s /scripts/nzbToMedia /app/scripts/nzbToMedia
+
 
 # permissions
 chown abc:abc -R \
