@@ -1,8 +1,7 @@
 FROM linuxserver/nzbget:latest
-MAINTAINER sparklyballs
+MAINTAINER bbsan
 
 
-# install ffmpeg
 ENV NZBTOMEDIA_BRANCH=master
 
 # install runtime dependencies
@@ -21,14 +20,24 @@ RUN \
 	zlib \
 	ffmpeg
 
+RUN pip install --upgrade PIP
 
 
 # add pip packages
- RUN pip install --no-cache-dir -U \
+RUN pip install --no-cache-dir -U \
 	configparser \
 	requests \
 	urllib3 \
-	virtualenv
+	virtualenv \
+    requests[security] \
+	requests-cache \
+	babelfish \
+	"guessit<2"\
+	"subliminal<2"\ 
+	qtfaststart
+# As per https://github.com/mdhiggins/sickbeard_mp4_automator/issues/643
+ONBUILD RUN pip uninstall stevedore
+ONBUILD RUN pip install stevedore==1.19.1
 
 # add local files
 COPY root/ /

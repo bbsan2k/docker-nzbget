@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv bash
+
+
+if [[ ! -e /scripts/MP4_Automator/.git ]]; then
+	/usr/bin/git clone https://github.com/mdhiggins/sickbeard_mp4_automator.git /scripts/MP4_Automator
+else
+	cd /scripts/MP4_Automator && /usr/bin/git pull 
+fi
+
+ln -s /scripts/MP4_Automator /app/scripts/MP4_Automator
+
+# permissions
+chown abc:abc -R \
+	/app/scripts
