@@ -1,0 +1,20 @@
+#!/usr/bin/with-contenv bash
+
+
+# permissions
+chown abc:abc -R \
+	/scripts
+ 
+
+if [[ ! -e /scripts/nzbToMedia/.git ]]; then
+	/usr/bin/git clone https://github.com/clinton-hall/nzbToMedia -b ${NZBTOMEDIA_BRANCH} /scripts/nzbToMedia
+else
+	cd /scripts/nzbToMedia && /usr/bin/git pull && /usr/bin/git checkout ${NZBTOMEDIA_BRANCH} 
+fi
+
+ln -s /scripts/nzbToMedia /app/scripts/nzbToMedia
+
+
+# permissions
+chown abc:abc -R \
+	/app/scripts
