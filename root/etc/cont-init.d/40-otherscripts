@@ -6,8 +6,8 @@ chown abc:abc -R \
 	/scripts
 
 # copy all addition post processing scripts
-[[ -e /scripts ]] && \
-	cp -rf /scripts/* /app/scripts
+[[ -e /scripts/other_scripts ]] && \
+	cp -rf /scripts/other_scripts /app/scripts
  
 
 # permissions
