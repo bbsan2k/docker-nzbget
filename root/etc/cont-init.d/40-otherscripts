@@ -6,15 +6,14 @@ chown abc:abc -R \
 	/scripts
 
 # copy all addition post processing scripts
-[[ -e /scripts/other_scripts ]] && \
+if [[ -e /scripts/other_scripts ]]; then 
 	#append to ScriptDir if not done already
 	if ! grep -q "/scripts/other_scripts" /defaults/nzbget.conf; then
 		sed -i \
 			-e 	'\|^ScriptDir|s|$|;/scripts/other_scripts|' \
 			/defaults/nzbget.conf
 	fi								
- 
-
-# permissions
-chown abc:abc -R \
-	/scripts/other_scripts
+	# permissions
+	chown abc:abc -R \
+		/scripts/other_scripts
+fi
