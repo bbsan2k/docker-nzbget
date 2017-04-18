@@ -12,9 +12,14 @@ else
 	cd /scripts/nzbToMedia && /usr/bin/git pull && /usr/bin/git checkout ${NZBTOMEDIA_BRANCH} 
 fi
 
-ln -s /scripts/nzbToMedia /app/scripts/nzbToMedia
+#append to ScriptDir if not done already
+if ! grep -q "/scripts/nzbToMedia" /defaults/nzbget.conf; then
+	sed -i \
+		-e 	'\|^ScriptDir|s|$|;/scripts/nzbToMedia|' \
+		/defaults/nzbget.conf
+fi
 
 
 # permissions
 chown abc:abc -R \
-	/app/scripts
+	/scripts
