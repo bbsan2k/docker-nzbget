@@ -7,7 +7,13 @@ else
 	cd /scripts/MP4_Automator && /usr/bin/git pull 
 fi
 
-ln -s /scripts/MP4_Automator /app/scripts/MP4_Automator
+#append to ScriptDir if not done already
+if ! grep -q "/scripts/MP4_Automator" /defaults/nzbget.conf; then
+	sed -i \
+		-e 	'\|^ScriptDir|s|$|;/scripts/MP4_Automator|' \
+		/defaults/nzbget.conf
+fi
+
 
 # permissions
 chown abc:abc -R \
